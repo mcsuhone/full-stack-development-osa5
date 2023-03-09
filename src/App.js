@@ -71,7 +71,7 @@ const App = () => {
   const updateBlog = async (newBlog) => {
     try {
       const updatedBlog = await blogService.update(newBlog)
-      setBlogs(blogs.map(blog => blog.id !== updatedBlog.id ? blog : updatedBlog))
+      setBlogs(blogs.map(blog => blog.id !== updatedBlog.id ? blog : { ...updatedBlog , user: blog.user }))
     } catch(error) {
       console.log(error.response.data.error)
     }
@@ -97,7 +97,7 @@ const App = () => {
       <div>
         <h2>Log in to application</h2>
         <Notification ref={notificationRef} />
-        <LoginForm handleLogin={handleLogin} 
+        <LoginForm handleLogin={handleLogin}
         />
       </div>
     )
@@ -112,7 +112,7 @@ const App = () => {
       <Notification ref={notificationRef} />
 
       <p>{user.username} logged in <button onClick={logout}>logout</button></p>
-      
+
       <Togglable buttonLabel='create new blog' ref={blogFormRef}>
         <BlogForm createBlog={createBlog} />
       </Togglable>

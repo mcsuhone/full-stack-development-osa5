@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-const Blog = ({blog, updateBlog, removeBlog}) => {
+const Blog = ({ blog, updateBlog, removeBlog }) => {
   const blogStyle = {
     paddingTop: 3,
     paddingLeft: 3,
@@ -9,9 +10,9 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  
+
   const [showFullBlog, setShowFullBlog] = useState(false)
-  
+
   const toggleVisibility = () => {
     setShowFullBlog(!showFullBlog)
   }
@@ -23,7 +24,7 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
   const deleteBlog = () => {
     removeBlog(blog.id)
   }
-  
+
   if (showFullBlog) {
     return (
       <div style={blogStyle}>
@@ -40,6 +41,12 @@ const Blog = ({blog, updateBlog, removeBlog}) => {
       {blog.title} - {blog.author} <button onClick={toggleVisibility}>view</button>
     </div>
   )
+}
+
+Blog.propTypes = {
+  blog: PropTypes.object.isRequired,
+  updateBlog: PropTypes.func.isRequired,
+  removeBlog: PropTypes.func.isRequired
 }
 
 export default Blog
