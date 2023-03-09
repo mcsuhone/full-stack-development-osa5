@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const Blog = ({blog, updateBlog}) => {
+const Blog = ({blog, updateBlog, removeBlog}) => {
   const blogStyle = {
     paddingTop: 3,
     paddingLeft: 3,
@@ -20,7 +20,9 @@ const Blog = ({blog, updateBlog}) => {
     updateBlog({ title: blog.title, author: blog.author, url: blog.url, likes: blog.likes + 1, user: blog.user.id, id: blog.id })
   }
 
-  console.log(blog)
+  const deleteBlog = () => {
+    removeBlog(blog.id)
+  }
   
   if (showFullBlog) {
     return (
@@ -28,7 +30,8 @@ const Blog = ({blog, updateBlog}) => {
         {blog.title} - {blog.author} <button onClick={toggleVisibility}>hide</button><br/>
         {blog.url} <br/>
         likes {blog.likes} <button onClick={addLike}>like</button><br/>
-        {blog.user.username}
+        {blog.user.username}<br/>
+        <button onClick={deleteBlog}>remove</button>
       </div>
     )
   }

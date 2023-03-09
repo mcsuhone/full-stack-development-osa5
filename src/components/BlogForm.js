@@ -12,8 +12,6 @@ const BlogForm = ({createBlog}) => {
     setUrl('')
     await createBlog({title, author, url})
   }
-
-  
   
   return (
     <div>

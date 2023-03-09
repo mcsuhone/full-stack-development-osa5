@@ -70,8 +70,17 @@ const App = () => {
 
   const updateBlog = async (newBlog) => {
     try {
-      await blogService.update(newBlog)
-      reloadBlogs()
+      const updatedBlog = await blogService.update(newBlog)
+      setBlogs(blogs.map(blog => blog.id !== updatedBlog.id ? blog : updatedBlog))
+    } catch(error) {
+      console.log(error.response.data.error)
+    }
+  }
+
+  const removeBlog = async (blogId) => {
+    try {
+      await blogService.remove(blogId)
+      setBlogs(blogs.filter(blog => blog.id !== blogId))
     } catch(error) {
       console.log(error.response.data.error)
     }
@@ -94,6 +103,8 @@ const App = () => {
     )
   }
 
+  const sortedBlogs = blogs.sort((a, b) => a.likes < b.likes ? 1 : -1)
+
   return (
     <div>
       <h2>blogs</h2>
@@ -108,8 +119,8 @@ const App = () => {
 
       <p></p>
 
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
+      {sortedBlogs.map(blog =>
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog}/>
       )}
     </div>
   )

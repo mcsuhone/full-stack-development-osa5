@@ -17,3 +17,9 @@
   padding: 10px;
   margin-bottom: 10px;
 }
+
+button {
+  background-color: white;
+  border-color: gray;
+  border-radius: 5px;
+}
