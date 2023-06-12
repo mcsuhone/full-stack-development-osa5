@@ -38,15 +38,13 @@ const Blog = ({ blog, updateBlog, removeBlog }) => {
   }
   return (
     <div style={blogStyle}>
-      {blog.title} - {blog.author} <button onClick={toggleVisibility}>view</button>
+      {blog.title} <button onClick={toggleVisibility}>view</button>
     </div>
   )
 }
 
 Blog.propTypes = {
-  blog: PropTypes.object.isRequired,
-  updateBlog: PropTypes.func.isRequired,
-  removeBlog: PropTypes.func.isRequired
+  blog: PropTypes.object.isRequired
 }
 
 export default Blog
