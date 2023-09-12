@@ -8,10 +8,10 @@ const BlogForm = ({ createBlog }) => {
 
   const addBlog = async (event) => {
     event.preventDefault()
+    await createBlog({ title, author, url })
     setTitle('')
     setAuthor('')
     setUrl('')
-    await createBlog({ title, author, url })
   }
 
   return (
@@ -19,13 +19,13 @@ const BlogForm = ({ createBlog }) => {
       <h2>create new blog</h2>
       <form onSubmit={addBlog}>
         <div>
-          title <input type='text' onChange={(event) => setTitle(event.target.value)} value={title}/>
+          title <input id='title-input' type='text' onChange={(event) => setTitle(event.target.value)} value={title}/>
         </div>
         <div>
-          author <input type='text' onChange={(event) => setAuthor(event.target.value)} value={author}/>
+          author <input id='author-input' type='text' onChange={(event) => setAuthor(event.target.value)} value={author}/>
         </div>
         <div>
-          url <input type='text' onChange={(event) => setUrl(event.target.value)} value={url}/>
+          url <input id='url-input' type='text' onChange={(event) => setUrl(event.target.value)} value={url}/>
         </div>
         <div>
           <button type='submit'>create</button>

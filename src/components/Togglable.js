@@ -5,6 +5,7 @@ const Togglable = forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false)
 
   const toggleVisibility = () => {
+    props.mockHandler()
     setVisible(!visible)
   }
 
@@ -18,13 +19,13 @@ const Togglable = forwardRef((props, ref) => {
     return (
       <div>
         {props.children}
-        <button onClick={toggleVisibility}>cancel</button>
+        <button className='toggle-button' onClick={toggleVisibility}>cancel</button>
       </div>
     )
   }
   return (
     <div>
-      <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+      <button className='toggle-button' onClick={toggleVisibility}>{props.buttonLabel}</button>
     </div>
   )
 })
