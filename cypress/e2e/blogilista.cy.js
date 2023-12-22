@@ -90,5 +90,45 @@ describe('Blog app', function() {
       cy.get('#view-blog-button').click()
       cy.contains('remove').should('not.exist')
     })
+
+    it('Blogs are ordered by likes', function() {
+      // Create post 2
+      cy.wait(500)
+      cy.get('#toggle-blog-form').click()
+      cy.get('#title-input').type('Tepon oma blogi')
+      cy.get('#author-input').type('Teppo Testaaja')
+      cy.get('#url-input').type('http://localhost/blogaajateppo')
+      cy.get('#blog-form-submit-button').click()
+
+      // Create post 3
+      cy.wait(500)
+      cy.get('#toggle-blog-form').click()
+      cy.get('#title-input').type('Pelidevaus')
+      cy.get('#author-input').type('Pekka pelintekijä')
+      cy.get('#url-input').type('http://localhost/pekanpeliblog')
+      cy.get('#blog-form-submit-button').click()
+
+      cy.wait(500)
+      cy.get('.blog').eq(0).within(function() {
+          cy.get('#view-blog-button').click()
+          cy.wait(500)
+          cy.get('#like-blog-button').click()
+          cy.wait(500)
+          cy.get('#like-blog-button').click()
+        }
+      )
+      
+      cy.wait(500)
+      cy.get('.blog').eq(1).within(function() {
+          cy.get('#view-blog-button').click()
+          cy.wait(500)
+          cy.get('#like-blog-button').click()
+        }
+      )
+
+      cy.get('.blog').eq(0).contains('Pelidevaus')
+      cy.get('.blog').eq(1).contains('Tepon oma blogi')
+      cy.get('.blog').eq(2).contains('Ruuanlaitto aitoon italian tyyliin')
+    })
   })
 })
