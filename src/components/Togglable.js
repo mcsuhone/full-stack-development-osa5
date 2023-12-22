@@ -22,7 +22,8 @@ Togglable.propTypes = {
   id: PropTypes.string,
   buttonLabel: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  visible: PropTypes.bool.isRequired
+  visible: PropTypes.bool.isRequired,
+  children: PropTypes.node
 }
 
 export default Togglable
