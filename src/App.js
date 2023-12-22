@@ -12,9 +12,9 @@ const App = () => {
   const [user, setUserToken] = useState(null)
   const [blogs, setBlogs] = useState([])
   const [reloadState, setReloadBlogs] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   const notificationRef = useRef()
-  const blogFormRef = useRef()
 
   const reloadBlogs = () => {
     setReloadBlogs(!reloadState)
@@ -40,6 +40,10 @@ const App = () => {
     }
   }, [])
 
+  const toggleVisibility = () => {
+    setVisible(!visible)
+  }
+
   const handleLogin = async (credentials) => {
     try {
       const returnedUser = await login(credentials)
@@ -61,7 +65,7 @@ const App = () => {
       setBlogs(blogs.concat(addedBlog))
       notificationRef.current.setTimedNotification(`a new blog ${addedBlog.title} by ${addedBlog.author} added`)
       reloadBlogs()
-      blogFormRef.current.toggleVisibility()
+      toggleVisibility()
     } catch(error) {
       notificationRef.current.setTimedNotification(error.response.data.error, 'warning')
       console.log(error.response.data.error)
@@ -97,8 +101,7 @@ const App = () => {
       <div>
         <h2>Log in to application</h2>
         <Notification ref={notificationRef} />
-        <LoginForm handleLogin={handleLogin}
-        />
+        <LoginForm handleLogin={handleLogin}/>
       </div>
     )
   }
@@ -107,13 +110,14 @@ const App = () => {
 
   return (
     <div>
+
       <h2>blogs</h2>
 
       <Notification ref={notificationRef} />
 
       <p>{user.username} logged in <button onClick={logout}>logout</button></p>
 
-      <Togglable buttonLabel='create new blog' ref={blogFormRef}>
+      <Togglable buttonLabel='create new blog' onClick={toggleVisibility} visible={visible}>
         <BlogForm createBlog={createBlog} />
       </Togglable>
 
