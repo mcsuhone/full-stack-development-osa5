@@ -6,6 +6,11 @@ describe('Blog app', function() {
       name: 'Teppo',
       password: 'asdasd'
     })
+    cy.request('POST', 'http://localhost:3000/api/users', {
+      username: 'testaaja2',
+      name: 'Matti',
+      password: 'asdasd'
+    })
     cy.visit('http://localhost:3000')
   })
 
@@ -57,7 +62,7 @@ describe('Blog app', function() {
       cy.get('#toggle-blog-form').click()
       cy.get('#title-input').type('Ruuanlaitto aitoon italian tyyliin')
       cy.get('#author-input').type('Teppo Testaaja')
-      cy.get('#url-input').type('http://localhost:/italiablogi')
+      cy.get('#url-input').type('http://localhost/italiablogi')
       cy.get('#blog-form-submit-button').click()
     })
 
@@ -72,6 +77,18 @@ describe('Blog app', function() {
       cy.get('#view-blog-button').click()
       cy.get('#remove-blog-button').click()
       cy.contains('Ruuanlaitto aitoon italian tyyliin').should('not.exist')
+    })
+
+    it('Only user who created blog can delete it', function() {
+      // Logout
+      cy.get('#logout-button').click()
+      // Login as Matti
+      cy.get('#username').type('testaaja2')
+      cy.get('#password').type('asdasd')
+      cy.get('#login-button').click()
+
+      cy.get('#view-blog-button').click()
+      cy.contains('remove').should('not.exist')
     })
   })
 })

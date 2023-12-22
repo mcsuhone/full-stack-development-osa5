@@ -115,7 +115,7 @@ const App = () => {
 
       <Notification ref={notificationRef} />
 
-      <p>{user.username} logged in <button onClick={logout}>logout</button></p>
+      <p>{user.username} logged in <button id='logout-button' onClick={logout}>logout</button></p>
 
       <Togglable id='toggle-blog-form' buttonLabel='create new blog' onClick={toggleVisibility} visible={visible}>
         <BlogForm createBlog={createBlog} />
@@ -124,7 +124,7 @@ const App = () => {
       <p></p>
 
       {sortedBlogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog}/>
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} user={user}/>
       )}
     </div>
   )
