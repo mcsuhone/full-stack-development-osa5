@@ -117,7 +117,7 @@ const App = () => {
 
       <p>{user.username} logged in <button onClick={logout}>logout</button></p>
 
-      <Togglable buttonLabel='create new blog' onClick={toggleVisibility} visible={visible}>
+      <Togglable id='toggle-blog-form' buttonLabel='create new blog' onClick={toggleVisibility} visible={visible}>
         <BlogForm createBlog={createBlog} />
       </Togglable>
 

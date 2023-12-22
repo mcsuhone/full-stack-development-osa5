@@ -28,4 +28,21 @@ describe('Blog app', function() {
       cy.contains('wrong username or password')
     })
   })
+
+  describe('When logged in', function() {
+    beforeEach(function() {
+      cy.get('#username').type('testaaja')
+      cy.get('#password').type('asdasd')
+      cy.get('#login-button').click()
+    })
+
+    it('A blog can be created', function() {
+      cy.get('#toggle-blog-form').click()
+      cy.get('#title-input').type('Ruuanlaitto aitoon italian tyyliin')
+      cy.get('#author-input').type('Teppo Testaaja')
+      cy.get('#url-input').type('http://localhost:/italiablogi')
+      cy.get('#blog-form-submit-button').click()
+      cy.contains('Ruuanlaitto aitoon italian tyyliin')
+    })
+  })
 })
