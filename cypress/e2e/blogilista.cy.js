@@ -67,5 +67,11 @@ describe('Blog app', function() {
       cy.get('#like-blog-button').click()
       cy.contains('likes 1')
     })
+
+    it('A blog can be removed', function() {
+      cy.get('#view-blog-button').click()
+      cy.get('#remove-blog-button').click()
+      cy.contains('Ruuanlaitto aitoon italian tyyliin').should('not.exist')
+    })
   })
 })
